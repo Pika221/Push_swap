@@ -25,4 +25,16 @@ typedef struct s_list
 
 }	t_stack;
 
+void	push_a(t_stack *stack);
+void	push_b(t_stack *stack);
+void	rotate_a(t_stack *stack);
+void	rotate_b(t_stack *stack);
+void	rotate_ab(t_stack *stack);
+void	rrotate_a(t_stack *stack);
+void	rrotate_b(t_stack *stack);
+void	rrotate_ab(t_stack *stack);
+void	swap_a(t_stack *stack);
+void	swap_b(t_stack *stack);
+void	swap_ab(t_stack *stack);
+
 #endif
