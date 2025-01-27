@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rrotate.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marvin <hialpagu@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/27 18:01:30 by marvin            #+#    #+#             */
+/*   Updated: 2025/01/27 18:01:30 by marvin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 // rra
-void rrotate_a(t_stack *stack)
+void	rrotate_a(t_stack *stack)
 {
-	int i;
-	int tmp;
+	int	i;
+	int	tmp;
 
 	if (stack->sizea > 1)
 	{
@@ -18,11 +30,12 @@ void rrotate_a(t_stack *stack)
 		write (1, "rra\n", 4);
 	}
 }
+
 // rrb
-void rrotate_b(t_stack *stack)
+void	rrotate_b(t_stack *stack)
 {
-	int i;
-	int tmp;
+	int	i;
+	int	tmp;
 
 	if (stack->sizeb > 1)
 	{
@@ -37,8 +50,9 @@ void rrotate_b(t_stack *stack)
 		write (1, "rrb\n", 4);
 	}
 }
+
 // rrr
-void rrotate_ab(t_stack *stack)
+void	rrotate_ab(t_stack *stack)
 {
 	rrotate_a(stack);
 	rrotate_b(stack);
