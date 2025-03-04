@@ -21,7 +21,7 @@ void	swap_a(t_stack *stack)
 		tmp = stack->a[0];
 		stack->a[0] = stack->a[1];
 		stack->a[1] = tmp;
-		write (1, "sa\n", 3);
+		ft_printf("sa\n");
 	}
 }
 
@@ -35,7 +35,7 @@ void	swap_b(t_stack *stack)
 		tmp = stack->b[0];
 		stack->b[0] = stack->b[1];
 		stack->b[1] = tmp;
-		write (1, "sb\n", 3);
+		ft_printf("sb\n");
 	}
 }
 
@@ -44,5 +44,5 @@ void	swap_ab(t_stack *stack)
 {
 	swap_a(stack);
 	swap_b(stack);
-	write (1, "ss\n", 3);
+	ft_printf("ss\n");;
 }

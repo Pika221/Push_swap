@@ -22,6 +22,7 @@ typedef struct s_list
 	int	*b;
 	int	sizea;
 	int	sizeb;
+	int num;
 
 }	t_stack;
 
