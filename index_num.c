@@ -26,7 +26,7 @@ void	index_num(t_stack **a, int size)
 		tmp = *a;
 		while (tmp)
 		{
-			if (tmp->num < current_min && !tmp->assigned)
+			if (tmp->num < min_value && !tmp->assigned)
 			{
 				current_min = tmp;
 				min_value = tmp->num;

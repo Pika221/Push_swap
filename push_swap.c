@@ -48,7 +48,7 @@ void	sort_stack(t_stack **a, t_stack **b, t_stack *stack_size)
 	else if (stack_size -> num == 3)
 		sort_three(a, stack_size -> num);
 	else if (stack_size -> num <= 5)
-		sort_four_five(a, stack_size);
+		sort_four_five(a, b, stack_size);
 	else
 		sort_list(a, b, stack_size);
 }

@@ -10,14 +10,36 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = pushswap
+NAME = push_swap
+SRCS = push_swap.c checker.c index_num.c sort.c utils.c command_push.c command_rotate.c command_rrotate.c command_swap.c
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror
+LIBFT = libft/
+LIBFT_LIB = libft/libft.a
+PRINTF = ft_printf/
+PRINTF_LIB = ft_printf/libftprintf.a
+OBJS = $(SRCS:.c=.o)
 
-all :
+all: $(NAME) push_swap.h clean
 
-clean :
+$(NAME): $(OBJS)
+	@make -C $(LIBFT)
+	@make -C $(PRINTF)
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT_LIB) $(PRINTF_LIB)
 
-fclean :
+%.o : %.c
+	@$(CC) $(CFLAGS) -c $< -o $@
 
-re :
+clean:
+	@rm -rf $(OBJS)
+	@make -C $(LIBFT) clean
+	@make -C $(PRINTF) clean
 
-.PHONY all clean fclean re
+fclean:
+	@rm -rf $(NAME) $(OBJS)
+	@make -C $(LIBFT) fclean
+	@make -C $(PRINTF) fclean
+
+re: fclean all
+
+.PHONY: all clean fclean re
