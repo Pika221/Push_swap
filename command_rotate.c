@@ -1,60 +1,54 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rotate.c                                           :+:      :+:    :+:   */
+/*   command_rotate.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <hialpagu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/27 18:02:05 by marvin            #+#    #+#             */
-/*   Updated: 2025/01/27 18:02:05 by marvin           ###   ########.fr       */
+/*   Created: 2025/03/05 03:05:31 by marvin            #+#    #+#             */
+/*   Updated: 2025/03/05 03:05:31 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-// ra
-void	rotate_a(t_stack *stack)
-{
-	int	i;
-	int	tmp;
 
-	if (stack->sizea > 1)
-	{
-		i = 0;
-		tmp = stack->a[0];
-		while (stack->sizea - 1 > i)
-		{
-			stack->a[i] = stack->a[i + 1];
-			i++;
-		}
-		stack->a[i] = tmp;
-		write (1, "ra\n", 3);
-	}
+void	rotate_a(t_stack **a, int size)
+{
+	t_stack	*first;
+	t_stack	*new_first;
+
+	if (size < 2)
+		return ;
+	first = *a;
+	new_first = (*a)-> next;
+	while (first -> next)
+		first = first -> next;
+	first -> next = *a;
+	(*a)-> next = NULL;
+	*a = new_first;
+	ft_printf("ra\n");
 }
 
-// rb
-void	rotate_b(t_stack *stack)
+void	rotate_b(t_stack **b, int size)
 {
-	int	i;
-	int	tmp;
+	t_stack	*first;
+	t_stack	*new_first;
 
-	if (stack->sizeb > 1)
-	{
-		i = 0;
-		tmp = stack->b[0];
-		while (stack->sizeb - 1 > i)
-		{
-			stack->b[i] = stack->b[i + 1];
-			i++;
-		}
-		stack->b[i] = tmp;
-		write (1, "rb\n", 3);
-	}
+	if (size < 2)
+		return ;
+	first = *b;
+	new_first = (*b)-> next;
+	while (first -> next)
+		first = first -> next;
+	first -> next = *b;
+	(*b)-> next = NULL;
+	*b = new_first;
+	ft_printf("rb\n");
 }
 
-// rr
-void	rotate_ab(t_stack *stack)
+void	rotate_ab(t_stack **a, t_stack **b, int asize, int bsize)
 {
-	rotate_a();
-	rotate_b();
-	write (1, "rr\n", 3);
+	rotate_a(a, asize);
+	rotate_b(b, bsize);
+	ft_printf("rr\n");
 }

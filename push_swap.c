@@ -1,11 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marvin <hialpagu@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/05 02:56:39 by marvin            #+#    #+#             */
+/*   Updated: 2025/03/05 02:56:39 by marvin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-
-
-static t_stack *stack_a(char **av)
+static t_stack	*stack_a(char **av)
 {
-	t_stack *a;
-	t_stack *tmp;
+	t_stack	*a;
+	t_stack	*tmp;
 
 	a = malloc(sizeof(t_stack));
 	if (!a)
@@ -26,9 +36,9 @@ static t_stack *stack_a(char **av)
 				break ;
 			ft_lstadd_back(&tmp, ft_lstnew(tmp->num));
 			tmp = tmp -> next;
-			}
 		}
-		return (a);
+	}
+	return (a);
 }
 
 void	sort_stack(t_stack **a, t_stack **b, t_stack *stack_size)
@@ -43,26 +53,27 @@ void	sort_stack(t_stack **a, t_stack **b, t_stack *stack_size)
 		sort_list(a, b, stack_size);
 }
 
-int main(int ac, char *av[])
+int	main(int ac, char **av)
 {
-	t_stack *a;
-	t_stack *b;
-	t_stack *stack_size;
+	t_stack	*a;
+	t_stack	*b;
+	t_stack	*stack_size;
 
 	a = NULL;
 	b = NULL;
-	if(ac == 1)
+	if (ac == 1)
 	{
 		ft_printf("Invalid argument count!\n");
 		exit(EXIT_FAILURE);
 	}
-	check_arg(av); // bitti
-	a = stack_a(av); //bitti ft_lstadd_back ft_lstnew
-	stack_size = ft_lstsize(a);
-	double_or_sorted_check(a, 0); // bitti
+	check_arg(av);
+	a = stack_a(av);
+	stack_size = ft_lstnew(ft_lstsize(a));
+	stack_size->next = ft_lstnew(0);
+	double_or_sorted(a, 0);
 	index_num(&a, stack_size -> num);
-	if(stack_size -> num == 1)
+	if (stack_size -> num == 1)
 		return (0);
-	sort_stack(&a, &b, stack_size); // bitti fonksiyonları yaz
+	sort_stack(&a, &b, stack_size);
 	return (0);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marvin <hialpagu@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/05 02:54:25 by marvin            #+#    #+#             */
+/*   Updated: 2025/03/05 02:54:25 by marvin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 void	free_exit(t_stack *stack, char *message)
@@ -22,11 +34,3 @@ void	skip_whitespace(char ***av)
 	while ((***av == 32) || (***v >= 9 && ***av <= 13))
 		(**av)++;
 }
-
-/*static void	overflow_check(long digit, long result, long sign)
-{
-	if (sign == -1 && result > (2147483648 - digit) / 10)
-		exit(EXIT_FAILURE);
-	else if (sign == 1 && result > (2147483647 - digit) / 10)
-		exit(EXIT_FAILURE);
-}*/
