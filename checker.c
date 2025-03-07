@@ -1,83 +1,80 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   checker.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: marvin <hialpagu@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/05 03:19:35 by marvin            #+#    #+#             */
-/*   Updated: 2025/03/05 03:19:35 by marvin           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "push_swap.h"
 
-void	check_is_num(const char *av)
+int	ft_isdigit(int c)
 {
-	if (av[0] == ' ')
-		free_exit(NULL, "Invalid argument!\n");
-	else if (!ft_isdigit(*av) && *av != ' ' && !(*av >= 9 && *av <= 13)
-		&& *av != 43 && *av != 45)
-		free_exit(NULL, "Invalid argument!\n");
-	else if (ft_isdigit(*av) && ((*av + 1) == 43 || (*av + 1) == 45))
-		free_exit(NULL, "Invalid argument!\n");
-	else if ((*av == 43 || *av == 45) && ((*av + 1) == 43 || (*av + 1) == 45))
-		free_exit(NULL, "Invalid argument!\n");
-}
-
-int	check_arg(char **av)
-{
-	int	i;
-	int	j;
-
-	i = 1;
-	j = 0;
-	while (av[i])
-	{
-		j = 0;
-		if (!av[i][j])
-			free_exit(NULL, "Invalid argument!\n");
-		while (av[i][j])
-		{
-			check_is_num(&av[i][j]);
-			j++;
-		}
-		i++;
-	}
+	if (c >= '0' && c <= '9')
+		return (1);
 	return (0);
 }
 
-int	sorted_stack(t_stack *stack_a)
-{
-	while (stack_a->next != NULL)
+int	check_is_num(char *av)
+{	int	i;
+
+	i = 0;
+	if (!av)
+		return (0);
+	if (av[0] == '-' || av[0] == '+')
+		i++;
+	if (!ft_isdigit(av[i]))
+		return (0);
+	while (av[i])
 	{
-		if (stack_a->num < stack_a->next->num)
-			stack_a = stack_a->next;
-		else
+		if (!ft_isdigit(av[i]))
 			return (0);
+		i++;
 	}
 	return (1);
 }
 
-void	double_or_sorted(t_stack *stack, int i)
+long	ft_atol(const char *str)
 {
-	int	j;
+	long	result;
+	int		sign;
 
-	j = 0;
-	if (i == 0)
+	result = 0;
+	while (*str == ' ' || (*str >= 9 && *str <= 13))
+		str++;
+	sign = (*str == '-') ? -1 : 1;
+	(*str == '-' || *str == '+') ? str++ : 0;
+	while (*str >= '0' && *str <= '9')
+		result = result * 10 + *str++ - 48;
+	return (result * sign);
+}
+
+int	is_int_range(char *str)
+{
+	long	nbr;
+
+	nbr = ft_atol(str);
+	if (nbr > 2147483647 || nbr < -2147483648)
+		return (0);
+	return (1);
+}
+void	check_arg(int ac, char **av)
+{
+	int		i;
+	int		j;
+	char	**values;
+
+	i = 1;
+	if (ac < 2)
+		free_exit(NULL);
+	while (av[i])
 	{
-		while (i < stack->sizea)
+		j = 0;
+		values = ft_split(av[i], ' ');
+		if (!values || !values[j])
+			free_exit(NULL);
+		
+		while (values[j])
 		{
-			j = i + 1;
-			while (j < stack->sizea)
-			{
-				if (stack->a[i] == stack->a[j])
-					free_exit(stack, "Same arguments!\n");
-				j++;
-			}
-			i++;
+			if (!values[j] || !check_is_num(values[j]) 
+				|| !is_int_range(values[j]) ||  ft_strlen(values[j]) > 11)
+				free_exit(values);
+			free(values[j]);
+			j++;
 		}
+		free(values);
+		i++;
 	}
-	if (sorted_stack(stack))
-		free_exit(stack, NULL);
 }

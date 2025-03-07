@@ -1,60 +1,56 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   command_rrotate.c                                  :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: marvin <hialpagu@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/05 03:03:46 by marvin            #+#    #+#             */
-/*   Updated: 2025/03/05 03:03:46 by marvin           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "push_swap.h"
 
-void	rrotate_a(t_stack **a, int size)
+void	rrotate_a(t_stack **stack, int message)
 {
-	t_stack	*last;
-	t_stack	*new_last;
+	t_stack	*tmp;
+	t_stack	*end;
+	int		i;
 
-	if (size < 2)
+	i = 0;
+	if (stack == NULL || *stack == NULL)
 		return ;
-	last = *a;
-	new_last = *a;
-	while (last -> next)
+	if (stack_size(*stack) < 2)
+		return ;
+	tmp = *stack;
+	end = stack_last(*stack);
+	while (i < stack_size(*stack) - 2)
 	{
-		new_last = last;
-		last = last -> next;
+		tmp = tmp->next;
+		i++;
 	}
-	new_last -> next = NULL;
-	last -> next = *a;
-	*a = last;
-	ft_printf("rra\n");
+	tmp->next = NULL;
+	stack_add_front(stack, end);
+	if (message)
+		ft_printf("rra\n");
 }
 
-void	rrotate_b(t_stack **b, int size)
+void	rrotate_b(t_stack **stack, int message)
 {
-	t_stack	*last;
-	t_stack	*new_last;
+	t_stack	*tmp;
+	t_stack	*end;
+	int		i;
 
-	if (size < 2)
+	i = 0;
+	if (stack == NULL || *stack == NULL)
 		return ;
-	last = *b;
-	new_last = *b;
-	while (last -> next)
+	if (stack_size(*stack) < 2)
+		return ;
+	tmp = *stack;
+	end = stack_last(*stack);
+	while (i < stack_size(*stack) - 2)
 	{
-		new_last = last;
-		last = last -> next;
+		tmp = tmp->next;
+		i++;
 	}
-	new_last -> next = NULL;
-	last -> next = *b;
-	*b = last;
-	ft_printf("rrb\n");
+	tmp->next = NULL;
+	stack_add_front(stack, end);
+	if (message)
+		ft_printf("rrb\n");
 }
 
-void	rrotate_ab(t_stack **a, t_stack **b, int asize, int bsize)
+void	rrotate_ab(t_stack **stack_a, t_stack **stack_b)
 {
-	rrotate_a(a, asize);
-	rrotate_b(b, bsize);
+	rrotate_a(stack_a, 0);
+	rrotate_b(stack_b, 0);
 	ft_printf("rrr\n");
 }

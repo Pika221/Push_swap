@@ -1,36 +1,60 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: marvin <hialpagu@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/05 02:54:25 by marvin            #+#    #+#             */
-/*   Updated: 2025/03/05 02:54:25 by marvin           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "push_swap.h"
 
-void	free_exit(t_stack *stack, char *message)
+void	free_exit(char **set_free) // yaptım
 {
-	if (message)
-		write(2, message, ft_strlen(message));
-	if (stack)
+	int	i;
+
+	i = 0;
+	if (set_free)
 	{
-		if (stack->a)
-			free(stack->a);
-		if (stack->b)
-			free(stack->b);
-		if (stack)
-			free(stack);
+		while (set_free[i])
+		{
+			free(set_free[i]);
+			i++;
+		}
+		free(set_free);
 	}
-	ft_printf("Error\n");
-	exit(1);
+	write(2, "Error\n", 6);
+	exit(EXIT_FAILURE);
 }
 
 void	skip_whitespace(char ***av)
 {
-	while ((***av == 32) || (***v >= 9 && ***av <= 13))
+	while ((***av == 32) || (***av >= 9 && ***av <= 13))
 		(**av)++;
+}
+size_t ft_strlen(const char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
+int	ft_atoi(const char *str)
+{
+	size_t	i;
+	int		sign;
+	int		num;
+
+	i = 0;
+	sign = 1;
+	num = 0;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			sign = -1;
+		i++;
+	}
+	while (str[i] <= '9' && str[i] >= '0')
+	{
+		num *= 10;
+		num += str[i] - '0';
+		i++;
+	}
+	return (sign * num);
 }

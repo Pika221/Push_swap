@@ -1,45 +1,32 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: marvin <hialpagu@student.42.fr>            +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/01/26 14:11:29 by marvin            #+#    #+#              #
-#    Updated: 2025/01/26 14:11:29 by marvin           ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME = push_swap
-SRCS = push_swap.c checker.c index_num.c sort.c utils.c command_push.c command_rotate.c command_rrotate.c command_swap.c
-CC = gcc
+CC = cc
+MAKEFLAGS += --no-print-directory
 CFLAGS = -Wall -Wextra -Werror
-LIBFT = libft/
-LIBFT_LIB = libft/libft.a
-PRINTF = ft_printf/
-PRINTF_LIB = ft_printf/libftprintf.a
-OBJS = $(SRCS:.c=.o)
+PRINTF = ft_printf/libftprintf.a
 
-all: $(NAME) push_swap.h clean
+SRCS = checker.c checker2.c command_push.c command_rotate.c command_rrotate.c command_swap.c push_swap.c small_sort.c sort.c utils.c utils2.c utils3.c ft_split.c
 
-$(NAME): $(OBJS)
-	@make -C $(LIBFT)
-	@make -C $(PRINTF)
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT_LIB) $(PRINTF_LIB)
+all: $(NAME)
 
-%.o : %.c
-	@$(CC) $(CFLAGS) -c $< -o $@
+$(NAME): $(PRINTF) $(SRCS)
+	$(CC) $(CFLAGS) $(SRCS) \
+	$(PRINTF) \
+	-I./ft_printf \
+	-o $(NAME)
+	@echo DONE!
 
+$(PRINTF):
+	@make -sC ft_printf
+
+run: all
+	@./push_swap
 clean:
-	@rm -rf $(OBJS)
-	@make -C $(LIBFT) clean
-	@make -C $(PRINTF) clean
+	@make fclean -sC ft_printf
+	@rm -f $(OBJS)
 
-fclean:
-	@rm -rf $(NAME) $(OBJS)
-	@make -C $(LIBFT) fclean
-	@make -C $(PRINTF) fclean
+fclean: clean
+	@rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re run

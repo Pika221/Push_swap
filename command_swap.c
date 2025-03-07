@@ -1,44 +1,40 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   command_swap.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: marvin <hialpagu@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/05 02:59:56 by marvin            #+#    #+#             */
-/*   Updated: 2025/03/05 02:59:56 by marvin           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "push_swap.h"
 
-void	swap_a(t_stack *top)
+void	swap_a(t_stack **stack, int messsage)
 {
-	int	tmp;
+	t_stack	*tmp;
+	t_stack	*tmp2;
 
-	if (!top || !top -> next)
+	if (!stack || !*stack || !(*stack)->next)
 		return ;
-	tmp = top->num;
-	top -> num = top -> next -> num;
-	top -> next -> num = tmp;
-	ft_printf("sa\n");
+	tmp = *stack;
+	tmp2 = (*stack)->next;
+	tmp->next = tmp2->next;
+	tmp2->next = tmp;
+	*stack = tmp2;
+	if (messsage)
+		ft_printf("sa\n");
 }
 
-void	swap_b(t_stack *top)
+void	swap_b(t_stack **stack, int messsage)
 {
-	int	tmp;
+	t_stack	*tmp;
+	t_stack	*tmp2;
 
-	if (!top || !top -> next)
+	if (!stack || !*stack || !(*stack)->next)
 		return ;
-	tmp = top->num;
-	top -> num = top -> next -> num;
-	top -> next -> num = tmp;
-	ft_printf("sb\n");
+	tmp = *stack;
+	tmp2 = (*stack)->next;
+	tmp->next = tmp2->next;
+	tmp2->next = tmp;
+	*stack = tmp2;
+	if (messsage)
+		ft_printf("sb\n");
 }
 
-void	swap_ab(t_stack *a, t_stack *b)
+void	swap_ab(t_stack **stack_a, t_stack **stack_b)
 {
-	swap_a(a);
-	swap_b(b);
+	swap_a(stack_a, 0);
+	swap_b(stack_b, 0);
 	ft_printf("ss\n");
 }

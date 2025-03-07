@@ -1,79 +1,38 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: marvin <hialpagu@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/05 02:56:39 by marvin            #+#    #+#             */
-/*   Updated: 2025/03/05 02:56:39 by marvin           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "push_swap.h"
 
-static t_stack	*stack_a(char **av)
+void	sort(t_stack **stack_a, t_stack **stack_b)
 {
-	t_stack	*a;
-	t_stack	*tmp;
-
-	a = malloc(sizeof(t_stack));
-	if (!a)
-		return (0);
-	*a = (t_stack){};
-	tmp = a;
-	while (*(++av))
+	if (sorted_stack(*stack_a))
+		;
+	else if (stack_size(*stack_a) == 2)
 	{
-		while (**av)
-		{
-			while ((**av >= 9 && **av <= 13) || **av == ' ')
-				(*av)++;
-			tmp -> num = ft_atoi(*(const char **)av);
-			while (ft_isdigit(**av) || **av == '-' || **av == '+')
-				(*av)++;
-			skip_whitespace(&av);
-			if (!**av && !*(av + 1))
-				break ;
-			ft_lstadd_back(&tmp, ft_lstnew(tmp->num));
-			tmp = tmp -> next;
-		}
+		if ((*stack_a)->value > (*stack_a)->next->value)
+			swap_a(stack_a, 1);
 	}
-	return (a);
-}
-
-void	sort_stack(t_stack **a, t_stack **b, t_stack *stack_size)
-{
-	if (stack_size -> num == 2)
-		sort_two(a);
-	else if (stack_size -> num == 3)
-		sort_three(a, stack_size -> num);
-	else if (stack_size -> num <= 5)
-		sort_four_five(a, b, stack_size);
+	else if (stack_size(*stack_a) == 3)
+		sort_three(stack_a);
+	else if (stack_size(*stack_a) == 4)
+		sort_four(stack_a, stack_b);
+	else if (stack_size(*stack_a) == 5)
+		sort_five(stack_a, stack_b);
 	else
-		sort_list(a, b, stack_size);
+		sort_radix(stack_a, stack_b);
 }
 
-int	main(int ac, char **av)
+int	main(int ac, char *args[])
 {
 	t_stack	*a;
 	t_stack	*b;
-	t_stack	*stack_size;
 
-	a = NULL;
-	b = NULL;
-	if (ac == 1)
+	check_arg(ac, args);
+	a = ps_parse(ac, args);
+	if (dup_check(a) == 1)
 	{
-		ft_printf("Invalid argument count!\n");
-		exit(EXIT_FAILURE);
+		stack_free(&a);
+		free_exit(NULL);
 	}
-	check_arg(av);
-	a = stack_a(av);
-	stack_size = ft_lstnew(ft_lstsize(a));
-	stack_size->next = ft_lstnew(0);
-	double_or_sorted(a, 0);
-	index_num(&a, stack_size -> num);
-	if (stack_size -> num == 1)
-		return (0);
-	sort_stack(&a, &b, stack_size);
-	return (0);
+	b = NULL;
+	set_index(&a);
+	sort(&a, &b);
+	stack_free(&a);
 }

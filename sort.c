@@ -1,84 +1,65 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   sort.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: marvin <hialpagu@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/05 02:55:13 by marvin            #+#    #+#             */
-/*   Updated: 2025/03/05 02:55:13 by marvin           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "push_swap.h"
 
-void	sort_two(t_stack **a)
+static int	find_max_bits(int size)
 {
-	if ((*a)->num > (*a)->next->num)
-		swap_a(*a);
+	int	max_bits;
+
+	max_bits = 0;
+	while (((size - 1) >> max_bits) != 0)
+		max_bits++;
+	return (max_bits);
 }
 
-void	sort_three(t_stack **a, int size)
+void	sort_radix(t_stack **stack_a, t_stack **stack_b)
 {
-	int	a;
-	int	b;
-	int	c;
-
-	a = (*a)->num;
-	b = (*a)->next->num;
-	c = (*a)->next->next->num;
-	if (b > c && c > a && b > a)
-	{
-		swap_a(*a);
-		rotate_a(*a, size);
-	}
-	else if (c > a && a > b && c > b)
-		swap_a(*a);
-	else if (b > a && b > c)
-		rrotate_a(a, size);
-	else if (a > b && c > b)
-		rotate_a(a, size);
-	else if (a > b && b > c)
-	{
-		swap_a(*a);
-		rrotate_a(a, size);
-	}
-}
-
-void	sort_four_five(t_stack **a, t_stack **b, t_stack *size_a)
-{
-	while (size_a->num > 3)
-		push_min(a, b, size_a);
-	sort_three(a, ft_lstsize(*a));
-	while (*b)
-		push_a(a, b, size_a, size_a->next);
-}
-
-void	sort_list(t_stack **a, t_stack **b, t_stack *size_a)
-{
+	int	i;
+	int	j;
 	int	size;
-	int	count;
-	int	bit;
-	int	max_bit;
+	int	max_bits;
+	int	num;
 
-	size = size_a->num;
-	max_bit = 0;
-	while ((size >> max_bit) > 0)
-		max_bit++;
-	bit = 0;
-	while (bit < max_bit && !sorted_stack(*a))
+	size = stack_size(*stack_a);
+	max_bits = find_max_bits(size);
+	i = 0;
+	while (i < max_bits)
 	{
-		count = 0;
-		while (count < size)
+		j = 0;
+		while (j < size)
 		{
-			if (((*a)->index >> bit) & 1)
-				push_b(a, b, size_a, size_a->next);
+			num = (*stack_a)->index;
+			if (((num >> i) & 1) == 1)
+				rotate_a(stack_a, 1);
 			else
-				rotate_a(a, size_a->num);
-			count++;
+				push_b(stack_a, stack_b);
+			j++;
 		}
-		while (*b)
-			push_a(a, b, size_a, size_a->next);
-		bit++;
+		while (*stack_b)
+			push_a(stack_a, stack_b);
+		i++;
 	}
 }
+t_stack	*ps_parse(int ac, char **args)
+{
+	t_stack	*rtn;
+	char	**values;
+	int		i;
+	int		arg;
+
+	arg = 1;
+	rtn = NULL;
+	while (arg < ac)
+	{
+		i = 0;
+		values = ft_split(args[arg], ' ');
+		while (values[i])
+		{
+			stack_add_back(&rtn, stack_new(ft_atoi(values[i])));
+			free(values[i]);
+			i++;
+		}
+		free (values);
+		arg++;
+	}
+	return (rtn);
+}
+

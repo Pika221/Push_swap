@@ -1,54 +1,40 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   command_rotate.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: marvin <hialpagu@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/05 03:05:31 by marvin            #+#    #+#             */
-/*   Updated: 2025/03/05 03:05:31 by marvin           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "push_swap.h"
 
-void	rotate_a(t_stack **a, int size)
+void	rotate_a(t_stack **stack, int message)
 {
-	t_stack	*first;
-	t_stack	*new_first;
+	t_stack	*tmp;
+	t_stack	*tmp2;
 
-	if (size < 2)
+	if (!stack || !*stack || !(*stack)->next)
 		return ;
-	first = *a;
-	new_first = (*a)-> next;
-	while (first -> next)
-		first = first -> next;
-	first -> next = *a;
-	(*a)-> next = NULL;
-	*a = new_first;
-	ft_printf("ra\n");
+	tmp = *stack;
+	*stack = (*stack)->next;
+	tmp2 = stack_last(*stack);
+	tmp2->next = tmp;
+	tmp->next = NULL;
+	if (message)
+		ft_printf("ra\n");
 }
 
-void	rotate_b(t_stack **b, int size)
+void	rotate_b(t_stack **stack, int message)
 {
-	t_stack	*first;
-	t_stack	*new_first;
+	t_stack	*tmp;
+	t_stack	*tmp2;
 
-	if (size < 2)
+	if (!stack || !*stack || !(*stack)->next)
 		return ;
-	first = *b;
-	new_first = (*b)-> next;
-	while (first -> next)
-		first = first -> next;
-	first -> next = *b;
-	(*b)-> next = NULL;
-	*b = new_first;
-	ft_printf("rb\n");
+	tmp = *stack;
+	*stack = (*stack)->next;
+	tmp2 = stack_last(*stack);
+	tmp2->next = tmp;
+	tmp->next = NULL;
+	if (message)
+		ft_printf("rb\n");
 }
 
-void	rotate_ab(t_stack **a, t_stack **b, int asize, int bsize)
+void	rotate_ab(t_stack **stack_a, t_stack **stack_b)
 {
-	rotate_a(a, asize);
-	rotate_b(b, bsize);
+	rotate_a(stack_a, 0);
+	rotate_b(stack_b, 0);
 	ft_printf("rr\n");
 }
