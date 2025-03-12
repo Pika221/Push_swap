@@ -27,7 +27,7 @@ void	sort_stack(t_stack **stack_a, t_stack **stack_b)
 		while (j < size)
 		{
 			num = (*stack_a)->index;
-			if (((num >> i) & 1) == 1)
+			if ((num >> i) & 1)
 				rotate_a(stack_a, 1);
 			else
 				push_b(stack_a, stack_b);
