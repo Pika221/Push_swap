@@ -2,16 +2,16 @@
 
 void	swap_a(t_stack **stack, int messsage)
 {
-	t_stack	*tmp;
-	t_stack	*tmp2;
+	t_stack	*first;
+	t_stack	*second;
 
-	if (!stack || !*stack || !(*stack)->next)
+	if (!stack || !(*stack) || !(*stack)->next)
 		return ;
-	tmp = *stack;
-	tmp2 = (*stack)->next;
-	tmp->next = tmp2->next;
-	tmp2->next = tmp;
-	*stack = tmp2;
+	first = (*stack);
+	second = (*stack)->next;
+	first->next = second->next;
+	second->next = first;
+	*stack = second;
 	if (messsage)
 		ft_printf("sa\n");
 }

@@ -1,28 +1,28 @@
 #include "push_swap.h"
 
-void	free_exit(char **set_free) // yaptım
+long	ft_atol(const char *str)
 {
-	int	i;
+	long	result;
+	int		sign;
 
-	i = 0;
-	if (set_free)
+	result = 0;
+	sign = 1;
+	while (*str == ' ' || (*str >= 9 && *str <= 13))
+		str++;
+	if (*str == '-' || *str == '+')
 	{
-		while (set_free[i])
-		{
-			free(set_free[i]);
-			i++;
-		}
-		free(set_free);
+		if (*str == '-')
+			sign = -1;
+		str++;
 	}
-	write(2, "Error\n", 6);
-	exit(EXIT_FAILURE);
+	while (*str >= '0' && *str <= '9')
+	{
+		result = result * 10 + (*str - '0');
+		str++;
+	}
+	return (result * sign);
 }
 
-void	skip_whitespace(char ***av)
-{
-	while ((***av == 32) || (***av >= 9 && ***av <= 13))
-		(**av)++;
-}
 size_t ft_strlen(const char *str)
 {
 	int i;
@@ -58,3 +58,11 @@ int	ft_atoi(const char *str)
 	}
 	return (sign * num);
 }
+
+int	ft_isdigit(int c)
+{
+	if (c >= '0' && c <= '9')
+		return (1);
+	return (0);
+}
+

@@ -10,7 +10,7 @@ static int	find_max_bits(int size)
 	return (max_bits);
 }
 
-void	sort_radix(t_stack **stack_a, t_stack **stack_b)
+void	sort_stack(t_stack **stack_a, t_stack **stack_b)
 {
 	int	i;
 	int	j;
@@ -38,28 +38,3 @@ void	sort_radix(t_stack **stack_a, t_stack **stack_b)
 		i++;
 	}
 }
-t_stack	*ps_parse(int ac, char **args)
-{
-	t_stack	*rtn;
-	char	**values;
-	int		i;
-	int		arg;
-
-	arg = 1;
-	rtn = NULL;
-	while (arg < ac)
-	{
-		i = 0;
-		values = ft_split(args[arg], ' ');
-		while (values[i])
-		{
-			stack_add_back(&rtn, stack_new(ft_atoi(values[i])));
-			free(values[i]);
-			i++;
-		}
-		free (values);
-		arg++;
-	}
-	return (rtn);
-}
-

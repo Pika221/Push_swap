@@ -16,73 +16,84 @@ int	find_min(t_stack *stack)
 	return (min);
 }
 
-void	sort_three(t_stack **stack)
+int	find_index(t_stack *stack, int num)
+{
+	int	index;
+
+	index = 0;
+	while (stack)
+	{
+		if (stack->value == num)
+			return (index);
+		stack = stack->next;
+		index++;
+	}
+	return (-1);
+}
+
+int	stack_size(t_stack *stack)
+{
+	int	size;
+
+	size = 0;
+	while (stack)
+	{
+		stack = stack->next;
+		size++;
+	}
+	return (size);
+}
+
+void	sort_three(t_stack **stack_a)
 {
 	int	a;
 	int	b;
 	int	c;
 
-	a = (*stack)->value;
-	b = (*stack)->next->value;
-	c = (*stack)->next->next->value;
-	if (a > b && b < c && a < c)
-		swap_a(stack, 1);
+	a = (*stack_a)->value;
+	b = (*stack_a)->next->value;
+	c = (*stack_a)->next->next->value;
+	if (b > c && c > a && b > a)
+	{
+		swap_a(stack_a, 1);
+		rotate_a(stack_a, 1);
+	}
+	else if (c > a && a > b && c > b)
+		swap_a(stack_a, 1);
+	else if (b > a && b > c)
+		rrotate_a(stack_a, 1);
+	else if (a > b && c > b)
+		rotate_a(stack_a, 1);
 	else if (a > b && b > c)
 	{
-		swap_a(stack, 1);
-		rrotate_a(stack, 1);
+		swap_a(stack_a, 1);
+		rrotate_a(stack_a, 1);
 	}
-	else if (a > b && b < c && a > c)
-		rotate_a(stack, 1);
-	else if (a < b && b > c && a < c)
-	{
-		swap_a(stack, 1);
-		rotate_a(stack, 1);
-	}
-	else if (a < b && b > c && a > c)
-		rrotate_a(stack, 1);
 }
 
-void	sort_four(t_stack **stack, t_stack **stack_b)
+void	small_stack(t_stack **stack_a, t_stack **stack_b, int size)
 {
 	int	min;
-	int	i;
 
-	min = find_min(*stack);
-	i = 0;
-	while ((*stack)->value != min)
+	if (size <= 3)
 	{
-		rrotate_a(stack, 1);
-		i++;
+		sort_three(stack_a);
+		return ;
 	}
-	push_b(stack, stack_b);
-	sort_three(stack);
-	push_a(stack, stack_b);
-}
-
-void	sort_five(t_stack **stack, t_stack **stack_b)
-{
-	int	min;
-	int	index;
-	int	size;
-	int	i;
-
-	i = 0;
-	while (i < 2)
+	while (size > 3)
 	{
-		size = stack_size(*stack);
-		min = find_min(*stack);
-		index = get_index(*stack, min);
-		if (index <= size / 2)
-			while ((*stack)->value != min)
-				rotate_a(stack, 1);
-		else
-			while ((*stack)->value != min)
-				rrotate_a(stack, 1);
-		push_b(stack, stack_b);
-		i++;
+		min = find_min(*stack_a);
+		while ((*stack_a)->value != min)
+		{
+			if (find_index(*stack_a, min) <= size / 2)
+				rotate_a(stack_a, size);
+			else
+				rrotate_a(stack_a, size);
+		}
+		push_b(stack_a, stack_b);
+		size--;
 	}
-	sort_three(stack);
-	push_a(stack, stack_b);
-	push_a(stack, stack_b);
+	sort_three(stack_a);
+	while (*stack_b)
+		push_a(stack_a, stack_b);
 }
