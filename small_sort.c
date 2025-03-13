@@ -55,19 +55,19 @@ void	sort_three(t_stack **stack_a)
 	c = (*stack_a)->next->next->value;
 	if (b > c && c > a && b > a)
 	{
-		swap_a(stack_a, 1);
-		rotate_a(stack_a, 1);
+		swap_a(stack_a);
+		rotate_a(stack_a);
 	}
 	else if (c > a && a > b && c > b)
-		swap_a(stack_a, 1);
+		swap_a(stack_a);
 	else if (b > a && b > c)
-		rrotate_a(stack_a, 1);
+		rrotate_a(stack_a);
 	else if (a > b && c > b)
-		rotate_a(stack_a, 1);
+		rotate_a(stack_a);
 	else if (a > b && b > c)
 	{
-		swap_a(stack_a, 1);
-		rrotate_a(stack_a, 1);
+		swap_a(stack_a);
+		rrotate_a(stack_a);
 	}
 }
 
@@ -86,9 +86,9 @@ void	small_stack(t_stack **stack_a, t_stack **stack_b, int size)
 		while ((*stack_a)->value != min)
 		{
 			if (find_index(*stack_a, min) <= size / 2)
-				rotate_a(stack_a, size);
+				rotate_a(stack_a);
 			else
-				rrotate_a(stack_a, size);
+				rrotate_a(stack_a);
 		}
 		push_b(stack_a, stack_b);
 		size--;

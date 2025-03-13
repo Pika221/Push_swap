@@ -33,7 +33,7 @@ void	check_args(char **av)
 			free_n_exit(NULL);
 		while (val[i])
 		{
-			if (!val[i] || !check_is_num(val[i]) || !check_int(val[i])
+			if (!check_is_num(val[i]) || !check_int(val[i])
 				|| ft_strlen(val[i]) > 11)
 				free_n_exit(val);
 			free(val[i]);
@@ -49,9 +49,9 @@ void	sort(t_stack **stack_a, t_stack **stack_b)
 	if (stack_size(*stack_a) == 2)
 	{
 		if ((*stack_a)->value > (*stack_a)->next->value)
-			swap_a(stack_a, 1);
+			swap_a(stack_a);
 	}
-	else if (stack_size(*stack_a) < 6)
+	else if (stack_size(*stack_a) <= 50)
 		small_stack(stack_a, stack_b, stack_size(*stack_a));
 	else
 		sort_stack(stack_a, stack_b);
@@ -62,7 +62,7 @@ int	main(int ac, char **av)
 	t_stack	*stack_a;
 	t_stack	*stack_b;
 
-	if (ac < 2 || !av[1][0])
+	if (ac < 2 || !*av[1])
 		return (0);
 	check_args(av);
 	stack_a = parser(ac, av);

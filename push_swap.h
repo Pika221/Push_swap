@@ -18,14 +18,14 @@ int	sorted_check(t_stack *stack);
 
 void	push_a(t_stack **stack_a, t_stack **stack_b);
 void	push_b(t_stack **stack_a, t_stack **stack_b);
-void	rotate_a(t_stack **stack, int message);
-void	rotate_b(t_stack **stack, int message);
+void	rotate_a(t_stack **stack);
+void	rotate_b(t_stack **stack);
 void	rotate_ab(t_stack **stack_a, t_stack **stack_b);
-void	rrotate_a(t_stack **stack, int message);
-void	rrotate_b(t_stack **stack, int message);
+void	rrotate_a(t_stack **stack);
+void	rrotate_b(t_stack **stack);
 void	rrotate_ab(t_stack **stack_a, t_stack **stack_b);;
-void	swap_a(t_stack **stack, int messsage);
-void	swap_b(t_stack **stack, int messsage);
+void	swap_a(t_stack **stack);
+void	swap_b(t_stack **stack);
 void	swap_ab(t_stack **stack_a, t_stack **stack_b);
 
 void	set_index(t_stack **stack);
