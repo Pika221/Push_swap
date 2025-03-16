@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   checker.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hialpagu <hialpagu@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/08 21:09:49 by hialpagu          #+#    #+#             */
+/*   Updated: 2025/03/08 21:09:49 by hialpagu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 int	check_is_num(char *str)
@@ -45,6 +57,7 @@ int	dup_check(t_stack *stack)
 	}
 	return (0);
 }
+
 void	free_stack(t_stack **stack)
 {
 	t_stack	*tmp;

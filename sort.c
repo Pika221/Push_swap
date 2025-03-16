@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sort.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hialpagu <hialpagu@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/08 21:14:29 by hialpagu          #+#    #+#             */
+/*   Updated: 2025/03/08 21:14:29 by hialpagu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 static int	find_max_bits(int size)
@@ -28,7 +40,7 @@ void	sort_stack(t_stack **stack_a, t_stack **stack_b)
 		{
 			num = (*stack_a)->index;
 			if ((num >> i) & 1)
-				rotate_a(stack_a);
+				rotate_a(stack_a, 1);
 			else
 				push_b(stack_a, stack_b);
 			j++;

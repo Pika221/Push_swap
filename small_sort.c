@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   small_sort.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hialpagu <hialpagu@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/08 21:14:15 by hialpagu          #+#    #+#             */
+/*   Updated: 2025/03/08 21:14:15 by hialpagu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 int	find_min(t_stack *stack)
@@ -55,19 +67,19 @@ void	sort_three(t_stack **stack_a)
 	c = (*stack_a)->next->next->value;
 	if (b > c && c > a && b > a)
 	{
-		swap_a(stack_a);
-		rotate_a(stack_a);
+		swap_a(stack_a, 1);
+		rotate_a(stack_a, 1);
 	}
 	else if (c > a && a > b && c > b)
-		swap_a(stack_a);
+		swap_a(stack_a, 1);
 	else if (b > a && b > c)
-		rrotate_a(stack_a);
+		rrotate_a(stack_a, 1);
 	else if (a > b && c > b)
-		rotate_a(stack_a);
+		rotate_a(stack_a, 1);
 	else if (a > b && b > c)
 	{
-		swap_a(stack_a);
-		rrotate_a(stack_a);
+		swap_a(stack_a, 1);
+		rrotate_a(stack_a, 1);
 	}
 }
 
@@ -86,9 +98,9 @@ void	small_stack(t_stack **stack_a, t_stack **stack_b, int size)
 		while ((*stack_a)->value != min)
 		{
 			if (find_index(*stack_a, min) <= size / 2)
-				rotate_a(stack_a);
+				rotate_a(stack_a, 1);
 			else
-				rrotate_a(stack_a);
+				rrotate_a(stack_a, 1);
 		}
 		push_b(stack_a, stack_b);
 		size--;

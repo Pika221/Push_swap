@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hialpagu <hialpagu@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/08 21:12:23 by hialpagu          #+#    #+#             */
+/*   Updated: 2025/03/08 21:12:23 by hialpagu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 t_stack	*stack_last(t_stack *stack)
@@ -52,7 +64,7 @@ t_stack	*parser(int ac, char **av)
 		i = 0;
 		val = ft_split(av[j], ' ');
 		if (!val || !val[i])
-			free_n_exit(NULL);
+			free_n_exit(NULL, 0);
 		while (val[i])
 		{
 			stack_add_back(&stack, stack_new(ft_atoi(val[i])));
